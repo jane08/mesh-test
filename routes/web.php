@@ -16,6 +16,11 @@ Route::get('/',[
     'as' => 'home'
 ]);
 
+    Route::get('/products/{category_id?}',[
+        'uses' => 'CategoryController@products',
+        'as' => 'products'
+    ]);
+
 /* other routes */
 Route::get('/about', function () {
     return view('frontend.other.about');

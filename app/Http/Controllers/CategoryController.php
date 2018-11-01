@@ -12,4 +12,9 @@ class CategoryController extends Controller
         $categories = Category::get()->toTree();
         return view('frontend.categories.index', compact('categories'));
     }
+
+    public function products($category_id)
+    {
+        return view('frontend.categories.products', ['category_id' => $category_id]);
+    }
 }

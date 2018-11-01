@@ -5,10 +5,16 @@
 @endsection
 
 @section('content')
+
+    <div id="app">
+        <app></app>
+
+
     <ul>
         @foreach($categories as $category)
             <li>
-                {{ $category->name }}
+                <router-link :to="{ name: 'products+{{$category->id}}' }"> {{ $category->name }}</router-link>
+
                 @if($category->children)
                     <ul>
                         @foreach($category->children as $cats)
@@ -31,7 +37,7 @@
         @endforeach
     </ul>
     <hr>
-
-
+    </div>
+    <script src="{{mix('js/app.js')}}"></script>
 
 @endsection
