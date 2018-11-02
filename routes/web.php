@@ -16,6 +16,12 @@ Route::get('/',[
     'as' => 'home'
 ]);
 
+    Route::get('/show-category',[
+        'uses' => 'CategoryController@index',
+        'as' => 'show-category'
+    ]);
+
+
     Route::get('/products/{category_id?}',[
         'uses' => 'CategoryController@products',
         'as' => 'products'
@@ -44,12 +50,17 @@ Route::post('/category',[
     'as' => 'category_store'
 ]);
 
-Route::put('/category',[
-    'uses' => 'CategoryApiController@store',
+Route::get('/delete/category/{category_id}',[
+    'uses' => 'CategoryApiController@destroy',
     'as' => 'category_delete'
 ]);
 
-Route::delete('/category/{id}',[
+    Route::get('/category-form/{category_id?}',[
+        'uses' => 'CategoryApiController@create',
+        'as' => 'category_create'
+    ]);
+
+Route::delete('/category/{category_id?}',[
     'uses' => 'CategoryApiController@destroy',
     'as' => 'category_store'
 ]);

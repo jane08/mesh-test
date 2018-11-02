@@ -18,7 +18,7 @@ const router = new VueRouter({
             component: About
         },
         {
-            path: '/',
+            path: '/show-category',
             name: 'category',
             component: Category,
         },
@@ -27,6 +27,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    components: { App },
+    components: { App, Category },
     router,
 });

@@ -25,9 +25,9 @@ class CategoryApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($category_id = null)
     {
-
+        return view('frontend.categories._form', ['category_id' => $category_id]);
     }
 
     /**
@@ -38,7 +38,7 @@ class CategoryApiController extends Controller
      */
     public function store(Request $request)
     {
-        $parent = Category::findOrFail(36);
+        $parent = Category::findOrFail($request['category_id']);
         $node = new Category();
         $node->name = $request['name'];
         $node->appendToNode($parent)->save();
