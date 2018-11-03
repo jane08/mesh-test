@@ -19,9 +19,11 @@ Master
 
 @include('includes.header')
 <div class="main">
+    <div id="app">
     @yield('content')
 </div>
+</div>
 @include('includes.footer')
-
+<script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

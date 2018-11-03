@@ -21,6 +21,11 @@ Route::get('/',[
         'as' => 'show-category'
     ]);
 
+    Route::get('/show-products/{category_id?}',[
+        'uses' => 'CategoryController@products',
+        'as' => 'show-products'
+    ]);
+
 
     Route::get('/products/{category_id?}',[
         'uses' => 'CategoryController@products',
