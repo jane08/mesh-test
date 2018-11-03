@@ -7,13 +7,13 @@
 @section('content')
 
     <div id="app">
-        <app categories="lol"></app>
+        <app :categories="{{ $categories }}"></app>
 
 
     <ul>
         @foreach($categories as $category)
             <li>
-                 {{ $category->name }}
+                <router-link :to="{ name: 'about' }">   {{ $category->name }} </router-link>
 
                 @if($category->children)
                     <ul>
