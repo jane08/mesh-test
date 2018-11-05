@@ -16185,6 +16185,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -16241,13 +16245,19 @@ var render = function() {
     "div",
     _vm._l(_vm.products, function(product) {
       return _c("div", { key: product.id }, [
+        _c("figure", { staticClass: "image is-128x128" }, [
+          _c("img", { attrs: { src: /images/ + product.path, alt: "product" } })
+        ]),
+        _vm._v(" "),
         _c("h3", { staticClass: "title" }, [
           _vm._v("   " + _vm._s(product.name) + " ")
         ]),
         _vm._v(" "),
         _c("p", { staticClass: "subtitle" }, [
           _vm._v("   " + _vm._s(product.description) + " ")
-        ])
+        ]),
+        _vm._v(" "),
+        _c("br")
       ])
     })
   )

@@ -1,8 +1,12 @@
 <template>
 <div>
 <div v-for="product in products" :key="product.id">
+    <figure class="image is-128x128">
+    <img :src="/images/+product.path" alt="product" >
+    </figure>
     <h3 class="title">   {{ product.name }} </h3>
     <p class="subtitle">   {{ product.description }} </p>
+    <br>
 </div>
 </div>
 </template>

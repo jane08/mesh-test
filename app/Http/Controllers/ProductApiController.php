@@ -42,6 +42,7 @@ class ProductApiController extends Controller
         $this->validate($request,[
             'name'=>'required|unique:products',
             'category_id'=>'required|numeric',
+            'product_image'=>'image|mimes:jpeg,png,jpg|max:2048',
 
         ]);
 
@@ -50,7 +51,12 @@ class ProductApiController extends Controller
         $product->id =  $request->input('product_id');
         $product->name = $request->input('name');
         $product->description = $request->input('description');
-        $product->path = 'path';
+
+        $image = $request->file('product_image');
+        $new_name = rand() . "." . $image->getClientOriginalExtension();
+       $path = $image->move(public_path("images"), $new_name);
+
+        $product->path = $new_name;
         $category_id = $request->input('category_id');
 
         if($product->save()) {
