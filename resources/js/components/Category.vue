@@ -1,7 +1,4 @@
 <template>
-    cat
-
-
 
 </template>
 

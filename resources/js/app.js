@@ -7,10 +7,12 @@ window.axios = Axios;
 Vue.use(VueRouter)
 
 import App from './components/App'
-import About from './components/About'
 import Category from './components/Category'
 import Product from './components/Product'
-
+let MyHeader = require('./components/MyHeader.vue');
+let MyFooter = require('./components/MyFooter.vue');
+let Home = require('./components/Home.vue');
+let About = require('./components/About.vue');
 
 const router = new VueRouter({
     mode: 'history',
@@ -19,6 +21,11 @@ const router = new VueRouter({
             path: '/about',
             name: 'about',
             component: About
+        },
+        {
+            path: '/home',
+            name: 'home',
+            component: Home
         },
         {
             path: '/show-category',
@@ -37,6 +44,6 @@ const router = new VueRouter({
 const app = new Vue({
     el: '#app',
 
-    components: { App, Category, VueRouter, Axios },
+    components: { App, Category, VueRouter, Axios, MyHeader, MyFooter },
     router,
 });

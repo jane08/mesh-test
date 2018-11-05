@@ -1,5 +1,3 @@
 <header>
-    <ul>
-        <li><a href="{{ route('about') }}">About</a></li>
-    </ul>
+   <my-header></my-header>
 </header>

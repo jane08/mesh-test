@@ -1,8 +1,8 @@
 <template>
 <div>
 <div v-for="product in products" :key="product.id">
-    <h3>   {{ product.name }} </h3>
-    <p>   {{ product.description }} </p>
+    <h3 class="title">   {{ product.name }} </h3>
+    <p class="subtitle">   {{ product.description }} </p>
 </div>
 </div>
 </template>
