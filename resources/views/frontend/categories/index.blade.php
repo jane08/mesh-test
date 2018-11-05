@@ -7,9 +7,6 @@
 @section('content')
 
 
-        <app :categories="{{ $categories }}"></app>
-
-
     <ul>
         @foreach($categories as $category)
             <li>
@@ -39,7 +36,7 @@
             </li>
         @endforeach
     </ul>
-    <hr>
+    <app :categories="{{ $categories }}"></app>
 
 
 

@@ -1,5 +1,10 @@
 <template>
-    <p>This is the product page {{ products }}</p>
+<div>
+<div v-for="product in products" :key="product.id">
+    <h3>   {{ product.name }} </h3>
+    <p>   {{ product.description }} </p>
+</div>
+</div>
 </template>
 
 <script>
@@ -17,6 +22,7 @@
                 this.category_id = to.params.category_id;
                // alert(  this.category_id);
                 this.loadProducts();
+                console.log( this.products);
             }
         },
         category_id(){
@@ -29,11 +35,10 @@
             },
         methods:{
             loadProducts(){
-                var vm = this;
-                axios.get('/show-products/'+vm.category_id)
+                axios.get('/show-products/'+this.category_id)
                     .then(({data}) => {
 
-                        vm.products = data;
+                        this.products = data.data;
                     })
                     .catch(e => {
                         console.log(e)
