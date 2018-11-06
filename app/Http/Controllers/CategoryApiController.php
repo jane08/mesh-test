@@ -28,7 +28,14 @@ class CategoryApiController extends Controller
     public function create($category_id = null)
     {
         $categories = Category::all();
-        return view('frontend.categories._form', ['category_id' => $category_id, 'categories' => $categories]);
+        if(!is_null($category_id)){
+            $cat = Category::findOrFail($category_id);
+        }
+        else{
+            $cat = null;
+        }
+
+        return view('frontend.categories._form', ['category_id' => $category_id, 'categories' => $categories, 'cat' => $cat]);
     }
 
     /**
@@ -39,12 +46,18 @@ class CategoryApiController extends Controller
      */
     public function store(Request $request)
     {
-        $parent = Category::findOrFail($request['category_id']);
+        $parent = Category::findOrFail($request['parent_id']);
        // $node = new Category();
         $node = $request->input('category_id') !== null ? Category::find($request->category_id) : new Category;
         $node->id =  $request->input('category_id');
         $node->name = $request['name'];
-        $node->appendToNode($parent)->save();
+
+        $node->parent_id = $parent->id;
+        $node->save();
+        if ($node->save()) {
+            $moved = $node->hasMoved();
+        }
+       // $node->appendToNode($parent)->save();
         /*if($node->appendToNode($parent)->save()){
             $moved = $node->hasMoved();
         }*/

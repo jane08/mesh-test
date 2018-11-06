@@ -8,39 +8,41 @@
 
     <div class="block">
         <div class="columns is-desktop">
-            <div class="column">
+            <div class="column is-two-fifths">
                 <aside class="menu">
                     <ul class="menu-list">
-                        @foreach($categories as $category)
-                            <li>
-                                <router-link
-                                        :to="{ name: 'products',params : {category_id : {{$category->id}}}}"> {{ $category->name }} </router-link>
+                        <?php
+                        $traverse = function ($categories, $prefix = ' ') use (&$traverse) {
+                        foreach ($categories as $category) {
+                        ?>
 
-                                @if($category->children)
-                                    <ul>
-                                        @foreach($category->children as $cats)
-                                            <li>
+                        <li>
+                            <router-link
+                                    :to="{ name: 'products',params : {category_id : {{$category->id}}}}"> {{ $category->name }} </router-link>
+                            <?php
+                            if($category->children){
+                            ?>
+                            <ul>
+                                <li>
+                                    {{ $traverse($category->children, $prefix . '-')}}
+                                </li>
+                            </ul>
+                            <?php
+                            }
 
-                                                <router-link
-                                                        :to="{ name: 'products',params : {category_id : {{$cats->id}}}}"> {{ $cats->name }} </router-link>
-                                                @if($cats->children)
-                                                    <ul>
-                                                        @foreach($cats->children as $cat)
-                                                            <li>
-                                                                <router-link
-                                                                        :to="{ name: 'products',params : {category_id : {{$cat->id}}}}"> {{ $cat->name }} </router-link>
+                            ?>
+                        </li>
 
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
+                        <?php
+                        }
 
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
+                        };
+                        ?>
+
+
+                        <?php
+                        $traverse($categories);
+                        ?>
                     </ul>
                 </aside>
             </div>

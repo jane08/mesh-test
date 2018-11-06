@@ -22,18 +22,26 @@
         <div class="field">
         <label for="name">Name: </label>
             <div class="control">
-        <input type="text" class="input" name="name" id="name">
+        <input type="text" class="input" name="name" id="name" value="{{ is_null($cat)? '': $cat->name }}">
             </div>
         </div>
 
         <div class="field">
-            <label class="label" for="category_id">Parent Category:</label>
+
+            <label class="label" for="parent_id">Parent Category:</label>
             <div class="control">
                 <div class="select">
-                    <select name="category_id" id="category_id" >
+                    <select name="parent_id" id="parent_id" >
                         <option value={{ null }}>Select category</option>
                         @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->name}}</option>
+
+                            <option value="{{ !empty($category)? $category->id : '' }}"
+
+                            @if ($category->id == $category_id)
+                                disabled
+                                    @endif
+                            >{{ $category->name }}</option>
+
                         @endforeach
                     </select>
                 </div>
