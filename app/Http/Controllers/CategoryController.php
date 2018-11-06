@@ -18,12 +18,16 @@ class CategoryController extends Controller
         return view('frontend.categories.index',  ['categories' => $categories]);
     }
 
-    public function products($category_id)
+    public function products($category_id = null)
     {
         if($category_id !== null) {
             $products = Category::find($category_id)->products()->get();
-            return ProductResource::collection($products);
+
         }
+        else{
+            $products = Category::with('products')->get();
+        }
+        return ProductResource::collection($products);
        // return view('frontend.categories.products', ['category_id' => $category_id]);
     }
 }

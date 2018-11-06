@@ -73,7 +73,7 @@ Route::delete('/category/{category_id?}',[
 // products
     Route::get('/products',[
         'uses' => 'ProductApiController@index',
-        'as' => 'categories'
+        'as' => 'products'
     ]);
 
     Route::get('/product/{id}',[

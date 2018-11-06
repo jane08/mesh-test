@@ -63,3 +63,41 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Test API
+
+## Products
+
+All Products
+/api/products
+
+Single Product
+/api/product/{product_id}
+/api/product/72
+
+Create
+/api/product-form
+
+Update
+/api/product-form/72
+
+Delete
+/api/delete/product/{id}
+
+## Categories
+
+All Categories
+/api/categories
+
+Single Categories
+/api/category/{product_id}
+/api/category/36
+
+Create
+/api/category-form
+
+Update
+/api/category-form/36
+
+Delete
+/api/delete/category/{category_id}

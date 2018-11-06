@@ -48,6 +48,7 @@
             </div>
             <div class="column">
                 <app :categories="{{ $categories }}"></app>
+                <product-default></product-default>
             </div>
 
         </div>

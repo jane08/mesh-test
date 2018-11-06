@@ -8,6 +8,7 @@ use App\Http\Resources\Category as CategoryResource;
 
 class Product extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *

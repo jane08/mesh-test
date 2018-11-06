@@ -25,24 +25,20 @@
         },
         watch: {
             '$route' (to, from) {
-                this.category_id = to.params.category_id;
-               // alert(  this.category_id);
-                this.loadProducts();
 
+                this.loadProductsDefault();
+                console.log( this.products);
             },
-            category_id(){
-                // var vm = this;
-                this.loadProducts();
-            }
+
         },
 
         created(){
-            this.category_id =this.$route.params.category_id;
-            this.loadProducts();
+            this.loadProductsDefault();
+            console.log( this.products);
             },
         methods:{
-            loadProducts(){
-                axios.get('/show-products/'+this.category_id)
+            loadProductsDefault(){
+                axios.get('/show-products/')
                     .then(({data}) => {
 
                         this.products = data.data;

@@ -16,7 +16,6 @@ class ProductApiController extends Controller
      */
     public function index(Product $products)
     {
-      //  $products = Product::paginate(5);
         return ProductResource::collection($products->with('categories')->paginate(5));
     }
 
@@ -34,36 +33,33 @@ class ProductApiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
-        $this->validate($request,[
-            'name'=>'required|unique:products',
-            'category_id'=>'required|numeric',
-            'product_image'=>'image|mimes:jpeg,png,jpg|max:2048',
+        $this->validate($request, [
+            'name' => 'required|unique:products',
+            'category_id' => 'required|numeric',
+            'product_image' => 'image|mimes:jpeg,png,jpg|max:2048',
 
         ]);
 
         $product = $request->input('product_id') !== null ? Product::find($request->product_id) : new Product;
 
-        $product->id =  $request->input('product_id');
+        $product->id = $request->input('product_id');
         $product->name = $request->input('name');
         $product->description = $request->input('description');
 
         $image = $request->file('product_image');
         $new_name = rand() . "." . $image->getClientOriginalExtension();
-       $path = $image->move(public_path("images"), $new_name);
+        $path = $image->move(public_path("images"), $new_name);
 
         $product->path = $new_name;
         $category_id = $request->input('category_id');
 
-        if($product->save()) {
-           // if($request->input('product_id') !== null) {
-                $product->categories()->detach();
-            //}
+        if ($product->save()) {
+            $product->categories()->detach();
             $product->categories()->attach($category_id);
             return new ProductResource($product);
         }
@@ -72,19 +68,19 @@ class ProductApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return  new ProductResource($product);
+        return new ProductResource($product);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -95,8 +91,8 @@ class ProductApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -107,13 +103,13 @@ class ProductApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        if($product->delete()){
+        if ($product->delete()) {
             return new ProductResource($product);
         }
 
