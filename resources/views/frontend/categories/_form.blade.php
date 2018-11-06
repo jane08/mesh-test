@@ -15,16 +15,38 @@
             </ul>
         </div>
     @endif
-
+    <div class="container">
     <form action="{{ route('category_store') }}" method="post">
 
         <input type="hidden" name="category_id" id="category_id" value="{{ $category_id  }}">
+        <div class="field">
         <label for="name">Name: </label>
-        <input type="text" name="name" id="name">
-        <label for="category_id">Category: </label>
-        <input type="text" name="category_id" id="category_id">
-        <button type="submit" > Submit </button>
+            <div class="control">
+        <input type="text" class="input" name="name" id="name">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="category_id">Parent Category:</label>
+            <div class="control">
+                <div class="select">
+                    <select name="category_id" id="category_id" >
+                        <option value={{ null }}>Select category</option>
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+        </div>
+
         <input type="hidden" value="{{ Session::token() }}" name="_token">
     </form>
-
+    </div>
+    <br />
 @endsection

@@ -1,5 +1,7 @@
 <template>
+
 <div>
+    <h2 class="title">Products List</h2>
 <div v-for="product in products" :key="product.id">
     <figure class="image is-128x128">
     <img :src="/images/+product.path" alt="product" >

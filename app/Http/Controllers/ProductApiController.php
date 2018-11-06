@@ -27,7 +27,8 @@ class ProductApiController extends Controller
      */
     public function create($product_id = null)
     {
-        return view('frontend.products._form', ['product_id' => $product_id]);
+        $categories = Category::all();
+        return view('frontend.products._form', ['product_id' => $product_id, 'categories' => $categories]);
     }
 
     /**

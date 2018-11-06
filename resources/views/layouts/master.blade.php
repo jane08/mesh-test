@@ -16,7 +16,6 @@
 </head>
 
 <body>
-Master
 
 <div id="app">
 <div id="container">

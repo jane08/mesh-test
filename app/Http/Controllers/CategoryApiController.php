@@ -27,7 +27,8 @@ class CategoryApiController extends Controller
      */
     public function create($category_id = null)
     {
-        return view('frontend.categories._form', ['category_id' => $category_id]);
+        $categories = Category::all();
+        return view('frontend.categories._form', ['category_id' => $category_id, 'categories' => $categories]);
     }
 
     /**
@@ -39,9 +40,14 @@ class CategoryApiController extends Controller
     public function store(Request $request)
     {
         $parent = Category::findOrFail($request['category_id']);
-        $node = new Category();
+       // $node = new Category();
+        $node = $request->input('category_id') !== null ? Category::find($request->category_id) : new Category;
+        $node->id =  $request->input('category_id');
         $node->name = $request['name'];
         $node->appendToNode($parent)->save();
+        /*if($node->appendToNode($parent)->save()){
+            $moved = $node->hasMoved();
+        }*/
         return new CategoryResource($node);
     }
 
