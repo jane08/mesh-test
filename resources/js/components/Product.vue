@@ -10,6 +10,7 @@
     <p class="subtitle">   {{ product.description }} </p>
     <br>
 </div>
+
 </div>
 </template>
 

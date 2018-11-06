@@ -12,9 +12,9 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create(5);
 
-
-    /*    $categories = [
+/*        $categories = [
             [
                 'name' => 'Books',
                 'children' => [
@@ -63,14 +63,65 @@ class CategoryTableSeeder extends Seeder
             \App\Category::create($category);
         }*/
 
+
+        $categories = [
+            [
+                'name' => $faker->text(20),
+                'children' => [
+                    [
+                        'name' => $faker->text(20),
+                        'children' => [
+                            ['name' => $faker->text(20)],
+                            ['name' => $faker->text(20)],
+                            ['name' => $faker->text(20)],
+                        ],
+                    ],
+                    [
+                        'name' => $faker->text(20),
+                        'children' => [
+                            ['name' => $faker->text(20)],
+                            ['name' => $faker->text(20)],
+                            ['name' => $faker->text(20)],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'name' => $faker->text(20),
+                'children' => [
+                    [
+                        'name' => $faker->text(20),
+                        'children' => [
+                            ['name' => $faker->text(20)],
+                            ['name' => $faker->text(20)],
+                        ],
+                    ],
+                    [
+                        'name' => $faker->text(20),
+                        'children' => [
+                            ['name' => $faker->text(20)],
+                            ['name' => $faker->text(20)],
+                            ['name' => $faker->text(20)],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        foreach($categories as $category)
+        {
+            \App\Category::create($category);
+        }
+
+
         $cats = App\Category::all();
-        $faker = Faker\Factory::create(5);
+
         foreach($cats as $cat){
 
             $product = new App\Product();
             $product->name = $faker->text(20);
-            $product->description = $faker->text(40);
-            $product->path = $faker->text(40);
+            $product->description = $faker->text(100);
+            $product->path = "323171921.png";
             $product->save();
             $cat->products()->attach($product->id);
         }
