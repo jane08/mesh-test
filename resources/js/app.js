@@ -40,17 +40,17 @@ const router = new VueRouter({
             component: Product,
         },
 
+
         {
-            path: '/show-products',
-            name: 'productsdefault',
-            component: ProductDefault,
+            path: '/',
+            name: 'product',
+            component: Product,
         },
     ],
 });
 
 const app = new Vue({
     el: '#app',
-
     components: { App, Category, VueRouter, Axios, MyHeader, MyFooter, ProductDefault },
     router,
 });

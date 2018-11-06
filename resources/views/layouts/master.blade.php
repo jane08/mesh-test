@@ -7,8 +7,9 @@
     <title>@yield('title')</title>
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
-    <link rel="stylesheet" href="{{URL::to('src/css/main.css')}}">
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">--}}
+ {{--   <link rel="stylesheet" href="{{URL::to('src/css/main.css')}}">--}}
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <meta name="csrf-token" content="{{ csrf_token()  }}">
     <script> window.Laravel = { csrfToken: '{{ csrf_token() }}' } </script>
     @yield('styles')

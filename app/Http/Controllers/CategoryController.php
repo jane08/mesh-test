@@ -25,7 +25,7 @@ class CategoryController extends Controller
 
         }
         else{
-            $products = Category::with('products')->get();
+            $products = Product::all();
         }
         return ProductResource::collection($products);
        // return view('frontend.categories.products', ['category_id' => $category_id]);

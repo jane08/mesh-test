@@ -5,8 +5,8 @@
 </template>
 <script>
     import Category from './Category'
+    import Product from './Product'
     export default {
-        props:['categories'],
-        components: { Category },
+        components: { Category, Product },
     }
 </script>

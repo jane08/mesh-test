@@ -6,7 +6,7 @@
     <figure class="image is-128x128">
     <img :src="/images/+product.path" alt="product" >
     </figure>
-    <h3 class="title">   {{ product.name }} </h3>
+    <h3 class="title  is-size-4">   {{ product.name }} </h3>
     <p class="subtitle">   {{ product.description }} </p>
     <br>
 </div>
@@ -43,7 +43,12 @@
             },
         methods:{
             loadProducts(){
-                axios.get('/show-products/'+this.category_id)
+
+                var url='/show-products/';
+                if(this.category_id != 'undefined' && this.category_id != null){
+                    url = '/show-products/'+this.category_id;
+                }
+                axios.get(url)
                     .then(({data}) => {
 
                         this.products = data.data;
