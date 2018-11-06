@@ -4,6 +4,31 @@
     Products
 @endsection
 
+@section('styles')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function() {
+            readURL(this);
+        });
+
+    });
+</script>
+@endsection
+
 @section('content')
 
     @if (@count($errors) > 0)
@@ -47,19 +72,11 @@
             </div>
 
             <div class="control">
-            <div class="file">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="product_image">
-                    <span class="file-cta">
-                      <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                      </span>
-                      <span class="file-label">
-                        Choose a file…
-                      </span>
-                    </span>
-                </label>
-            </div>
+
+                    <input class="file-input" type="file" name="product_image"  id="imgInp">
+
+                <img id="blah" src="#" alt="image" />
+
             </div>
 
             <br />
