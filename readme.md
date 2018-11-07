@@ -38,12 +38,15 @@ npm run watch
 
 #### Single Product
 /api/product/{product_id}
+
 /api/product/72
 
 #### Create
 /api/product-form
 
 #### Update
+/api/product-form/{id}
+
 /api/product-form/72
 
 #### Delete
@@ -56,12 +59,16 @@ npm run watch
 
 #### Single Category
 /api/category/{product_id}
+
 /api/category/36
 
 #### Create
 /api/category-form
 
 ####  Update
+
+/api/category-form//{id}
+
 /api/category-form/36
 
 #### Delete
