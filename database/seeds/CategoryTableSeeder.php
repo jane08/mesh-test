@@ -120,7 +120,7 @@ class CategoryTableSeeder extends Seeder
 
             $product = new App\Product();
             $product->name = $faker->text(20);
-            $product->description = $faker->text(100);
+            $product->description = $faker->text(254);
             $product->path = "326084549.jpg";
             $product->save();
             $cat->products()->attach($product->id);

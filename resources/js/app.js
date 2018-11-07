@@ -3,8 +3,10 @@ import VueRouter from 'vue-router'
 import Axios from 'axios'
 
 window.axios = Axios;
-
 Vue.use(VueRouter)
+
+var VueTruncate = require('vue-truncate-filter')
+Vue.use(VueTruncate)
 
 import App from './components/App'
 import Category from './components/Category'
@@ -56,6 +58,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    components: { App, Category, VueRouter, Axios, MyHeader, MyFooter, SingleProduct },
+    components: { App, Category, VueRouter, Axios, MyHeader, MyFooter, SingleProduct, VueTruncate },
     router,
 });

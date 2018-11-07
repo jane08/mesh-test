@@ -7,7 +7,7 @@
     <img :src="/images/+product.path" alt="product" >
     </figure>
     <h3 class="title  is-size-4">   {{ product.name }} </h3>
-    <p class="subtitle">   {{ product.description }} </p>
+    <p class="subtitle">   {{ product.description | truncate(100) }} </p>
     <p class="subtitle">  <router-link
             :to="{ name: 'single-product',params : {product_id : product.id}}"> Read More </router-link> </p>
     <br>
@@ -29,7 +29,6 @@
         watch: {
             '$route' (to, from) {
                 this.category_id = to.params.category_id;
-               // alert(  this.category_id);
                 this.loadProducts();
 
             },
@@ -38,14 +37,12 @@
                 this.loadProducts();
             }
         },
-
         created(){
             this.category_id =this.$route.params.category_id;
             this.loadProducts();
             },
         methods:{
             loadProducts(){
-
                 var url='/show-products/';
                 if(this.category_id != 'undefined' && this.category_id != null){
                     url = '/show-products/'+this.category_id;

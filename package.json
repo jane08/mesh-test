@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "bulma": "^0.7.2",
-        "vue-router": "^3.0.1"
+        "vue-router": "^3.0.1",
+        "vue-truncate-filter": "^1.1.7"
     }
 }
