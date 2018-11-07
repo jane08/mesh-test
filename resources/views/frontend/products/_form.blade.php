@@ -14,10 +14,11 @@
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
-                    $('#blah').attr('src', e.target.result);
+                    $('#img-preview').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(input.files[0]);
+                $( "#img-preview" ).addClass( "show_img" );
             }
         }
 
@@ -72,12 +73,22 @@
             </div>
 
             <div class="control">
-
-                    <input class="file-input" type="file" name="product_image"  id="imgInp">
-
-                <img id="blah" src="#" alt="image" />
-
+                <div class="file">
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="product_image"  id="imgInp">
+                        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                          </span>
+                          <span class="file-label">
+                            Choose a file…
+                          </span>
+                        </span>
+                    </label>
+                </div>
             </div>
+            <br />
+            <img id="img-preview" src="#" alt="image" class="image is-48x48 hide_img" />
 
             <br />
             <div class="control">

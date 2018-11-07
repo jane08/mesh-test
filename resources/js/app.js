@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 import App from './components/App'
 import Category from './components/Category'
 import Product from './components/Product'
-import ProductDefault from './components/ProductDefault'
+import SingleProduct from './components/SingleProduct'
 let MyHeader = require('./components/MyHeader.vue');
 let MyFooter = require('./components/MyFooter.vue');
 let Home = require('./components/Home.vue');
@@ -40,6 +40,11 @@ const router = new VueRouter({
             component: Product,
         },
 
+        {
+            path: '/show-product/:product_id',
+            name: 'single-product',
+            component: SingleProduct,
+        },
 
         {
             path: '/',
@@ -51,6 +56,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    components: { App, Category, VueRouter, Axios, MyHeader, MyFooter, ProductDefault },
+    components: { App, Category, VueRouter, Axios, MyHeader, MyFooter, SingleProduct },
     router,
 });

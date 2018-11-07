@@ -8,6 +8,8 @@
     </figure>
     <h3 class="title  is-size-4">   {{ product.name }} </h3>
     <p class="subtitle">   {{ product.description }} </p>
+    <p class="subtitle">  <router-link
+            :to="{ name: 'single-product',params : {product_id : product.id}}"> Read More </router-link> </p>
     <br>
 </div>
 

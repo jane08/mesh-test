@@ -30,4 +30,18 @@ class CategoryController extends Controller
         return ProductResource::collection($products);
        // return view('frontend.categories.products', ['category_id' => $category_id]);
     }
+
+    public function singleProduct($product_id = null)
+    {
+        if($product_id === null) {
+           // $products = Category::find($category_id)->products()->get();
+            $product = 'No results';
+        }
+        else{
+            $product = Product::findOrFail($product_id);
+        }
+        return new ProductResource($product);
+        // return view('frontend.categories.products', ['category_id' => $category_id]);
+    }
+
 }
