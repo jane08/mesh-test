@@ -17,13 +17,13 @@
             <br>
         </div>
         <div>
-            <button class="button is-info" v-on:click="loadProducts(pagination.prev_page)"
-                    :disabled="!pagination.prev_page">
+            <button class="button is-info" v-on:click="prevPage()"
+                    :disabled="current_page <= 1">
                 Previous
             </button>
-            <span> {{ pagination.current_page }} out of {{ pagination.last_page }} </span>
-            <button class="button is-info" v-on:click="loadProducts(pagination.next_page)"
-                    :disabled="!pagination.next_page">
+            <span> {{ current_page }} out of {{ last_page }} </span>
+            <button class="button is-info" v-on:click="nextPage()"
+                    :disabled="current_page == last_page">
                 Next
             </button>
 
@@ -40,56 +40,49 @@
                 category_id: null,
                 products: [],
                 pagination: [],
-                url: '/show-products/'
+                url: '/api/get-product/',
+                current_page : 0,
+                last_page : 0,
             }
         },
         watch: {
             '$route'(to, from) {
+                this.current_page = 0;
+                this.last_page = 0;
                 this.category_id = to.params.category_id;
                 this.loadProducts();
 
             },
-            category_id() {
-                // var vm = this;
-                this.loadProducts();
-            }
+
         },
         created() {
             this.category_id = this.$route.params.category_id;
             this.loadProducts();
         },
         methods: {
-            loadProducts(page_url = this.url) {
-                var vm = this;
-                page_url = page_url || this.url;
-                // this.url = '/show-products/';
-                if (this.category_id != 'undefined' && this.category_id != null) {
-                    this.url = '/show-products/' + this.category_id;
+            nextPage(){
+              if(this.current_page < this.last_page){
+                  this.current_page += 1;
+                  this.loadProducts();
+              }
+            },
+            prevPage(){
+                if(this.current_page){
+                    this.current_page -= 1;
+                    this.loadProducts();
                 }
-               // alert(this.url);
-                axios.get(page_url)
+            },
+            loadProducts() {
+                this.url = '/api/get-product/' + (this.category_id ? this.category_id : '');
+                axios.get(this.url+'?page='+this.current_page)
                     .then(({data}) => {
-                         //  console.log(data)
                         this.products = data.data;
-                        vm.makePagination(data.links, data.meta);
+                        this.current_page = data.meta.current_page;
+                        this.last_page = data.meta.last_page;
                     })
                     .catch(e => {
                         console.log(e)
                     })
-            },
-            makePagination(data, meta) {
-                let pagination = {
-                    current_page: meta.current_page,
-                    last_page: meta.last_page,
-                    next_page: data.next,
-                    prev_page: data.prev,
-                }
-                this.pagination = pagination;
-            },
-            fetchPaginateProducts(url) {
-                this.url = url;
-                console.log(url)
-               // this.loadProducts();
             }
         },
     }

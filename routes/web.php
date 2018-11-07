@@ -16,14 +16,16 @@ Route::group(['middleware' => ['web']], function () {
 		'as' => 'home'
 	]);
 
-	Route::get('/show-category', [
-		'uses' => 'CategoryController@index',
-		'as' => 'show-category'
-	]);
+
 
 	Route::get('/show-products/{category_id?}', [
-		'uses' => 'CategoryController@products',
+		'uses' => 'CategoryController@index',
 		'as' => 'show-products'
+	]);
+
+	Route::get('api/get-product/{category_id?}', [
+		'uses' => 'CategoryController@products',
+		//'as' => 'show-category'
 	]);
 
 	Route::get('/show-product/{product_id?}', [

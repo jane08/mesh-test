@@ -16198,17 +16198,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             category_id: null,
             products: [],
             pagination: [],
-            url: '/show-products/'
+            url: '/api/get-product/',
+            current_page: 0,
+            last_page: 0
         };
     },
 
     watch: {
         '$route': function $route(to, from) {
+            this.current_page = 0;
+            this.last_page = 0;
             this.category_id = to.params.category_id;
-            this.loadProducts();
-        },
-        category_id: function category_id() {
-            // var vm = this;
             this.loadProducts();
         }
     },
@@ -16218,41 +16218,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        nextPage: function nextPage() {
+            if (this.current_page < this.last_page) {
+                this.current_page += 1;
+                this.loadProducts();
+            }
+        },
+        prevPage: function prevPage() {
+            if (this.current_page) {
+                this.current_page -= 1;
+                this.loadProducts();
+            }
+        },
         loadProducts: function loadProducts() {
             var _this = this;
 
-            var page_url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.url;
-
-            var vm = this;
-            page_url = page_url || this.url;
-            // this.url = '/show-products/';
-            if (this.category_id != 'undefined' && this.category_id != null) {
-                this.url = '/show-products/' + this.category_id;
-            }
-            // alert(this.url);
-            axios.get(page_url).then(function (_ref) {
+            this.url = '/api/get-product/' + (this.category_id ? this.category_id : '');
+            axios.get(this.url + '?page=' + this.current_page).then(function (_ref) {
                 var data = _ref.data;
 
-                //  console.log(data)
                 _this.products = data.data;
-                vm.makePagination(data.links, data.meta);
+                _this.current_page = data.meta.current_page;
+                _this.last_page = data.meta.last_page;
             }).catch(function (e) {
                 console.log(e);
             });
-        },
-        makePagination: function makePagination(data, meta) {
-            var pagination = {
-                current_page: meta.current_page,
-                last_page: meta.last_page,
-                next_page: data.next,
-                prev_page: data.prev
-            };
-            this.pagination = pagination;
-        },
-        fetchPaginateProducts: function fetchPaginateProducts(url) {
-            this.url = url;
-            console.log(url);
-            // this.loadProducts();
         }
     }
 });
@@ -16317,10 +16307,10 @@ var render = function() {
           "button",
           {
             staticClass: "button is-info",
-            attrs: { disabled: !_vm.pagination.prev_page },
+            attrs: { disabled: _vm.current_page <= 1 },
             on: {
               click: function($event) {
-                _vm.loadProducts(_vm.pagination.prev_page)
+                _vm.prevPage()
               }
             }
           },
@@ -16330,9 +16320,9 @@ var render = function() {
         _c("span", [
           _vm._v(
             " " +
-              _vm._s(_vm.pagination.current_page) +
+              _vm._s(_vm.current_page) +
               " out of " +
-              _vm._s(_vm.pagination.last_page) +
+              _vm._s(_vm.last_page) +
               " "
           )
         ]),
@@ -16341,10 +16331,10 @@ var render = function() {
           "button",
           {
             staticClass: "button is-info",
-            attrs: { disabled: !_vm.pagination.next_page },
+            attrs: { disabled: _vm.current_page == _vm.last_page },
             on: {
               click: function($event) {
-                _vm.loadProducts(_vm.pagination.next_page)
+                _vm.nextPage()
               }
             }
           },
@@ -16632,15 +16622,7 @@ var staticRenderFns = [
       _c(
         "a",
         { staticClass: "navbar-item", attrs: { href: "https://bulma.io" } },
-        [
-          _c("img", {
-            attrs: {
-              src: "https://bulma.io/images/bulma-logo.png",
-              width: "112",
-              height: "28"
-            }
-          })
-        ]
+        [_c("img", { attrs: { src: "/images/logo/logo.png" } })]
       ),
       _vm._v(" "),
       _c(
