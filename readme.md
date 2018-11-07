@@ -33,36 +33,36 @@ npm run watch
 
 ## Products
 
-All Products
+#### All Products
 /api/products
 
-Single Product
+#### Single Product
 /api/product/{product_id}
 /api/product/72
 
-Create
+#### Create
 /api/product-form
 
-Update
+#### Update
 /api/product-form/72
 
-Delete
+#### Delete
 /api/delete/product/{id}
 
 ## Categories
 
-All Categories
+#### All Categories
 /api/categories
 
-Single Categories
+#### Single Category
 /api/category/{product_id}
 /api/category/36
 
-Create
+#### Create
 /api/category-form
 
-Update
+####  Update
 /api/category-form/36
 
-Delete
+#### Delete
 /api/delete/category/{category_id}
