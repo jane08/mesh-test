@@ -5,29 +5,29 @@
 @endsection
 
 @section('styles')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-    $( document ).ready(function() {
-        function readURL(input) {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function readURL(input) {
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function(e) {
-                    $('#img-preview').attr('src', e.target.result);
+                    reader.onload = function (e) {
+                        $('#img-preview').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                    $("#img-preview").addClass("show_img");
                 }
-
-                reader.readAsDataURL(input.files[0]);
-                $( "#img-preview" ).addClass( "show_img" );
             }
-        }
 
-        $("#imgInp").change(function() {
-            readURL(this);
+            $("#imgInp").change(function () {
+                readURL(this);
+            });
+
         });
-
-    });
-</script>
+    </script>
 @endsection
 
 @section('content')
@@ -49,13 +49,15 @@
             <div class="field">
                 <label for="name">Name: </label>
                 <div class="control">
-                    <input type="text" name="name" class="input" id="name" value="{{ is_null($product)? '': $product->name }}">
+                    <input type="text" name="name" class="input" id="name"
+                           value="{{ is_null($product)? '': $product->name }}">
                 </div>
             </div>
             <div class="field">
                 <label for="description">Description: </label>
                 <div class="control">
-                    <textarea class="textarea" name="description" id="description">{{ is_null($product)? '': $product->description }}</textarea>
+                    <textarea class="textarea" name="description"
+                              id="description">{{ is_null($product)? '': $product->description }}</textarea>
                 </div>
             </div>
 
@@ -67,9 +69,9 @@
 
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}"
-                               @if($category->id == $category_id)
-                                       selected
-                                   @endif
+                                        @if($category->id == $category_id)
+                                        selected
+                                        @endif
                                 >
                                     {{$category->name}}</option>
 
@@ -82,7 +84,7 @@
             <div class="control">
                 <div class="file">
                     <label class="file-label">
-                        <input class="file-input" type="file" name="product_image"  id="imgInp">
+                        <input class="file-input" type="file" name="product_image" id="imgInp">
                         <span class="file-cta">
                           <span class="file-icon">
                             <i class="fas fa-upload"></i>
@@ -94,10 +96,10 @@
                     </label>
                 </div>
             </div>
-            <br />
-            <img id="img-preview" src="#" alt="image" class="image is-48x48 hide_img" />
+            <br/>
+            <img id="img-preview" src="#" alt="image" class="image is-48x48 hide_img"/>
 
-            <br />
+            <br/>
             <div class="control">
                 <button type="submit" class="button is-link">Submit</button>
             </div>
@@ -105,5 +107,5 @@
             <input type="hidden" value="{{ Session::token() }}" name="_token">
         </form>
     </div>
-    <br />
+    <br/>
 @endsection

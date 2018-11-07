@@ -16110,6 +16110,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { Category: __WEBPACK_IMPORTED_MODULE_0__Category___default.a, Product: __WEBPACK_IMPORTED_MODULE_1__Product___default.a }
 });
@@ -16178,6 +16179,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -16185,7 +16196,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             category_id: null,
-            products: []
+            products: [],
+            pagination: [],
+            url: '/show-products/'
         };
     },
 
@@ -16208,18 +16221,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadProducts: function loadProducts() {
             var _this = this;
 
-            var url = '/show-products/';
+            var page_url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.url;
+
+            var vm = this;
+            page_url = page_url || this.url;
+            // this.url = '/show-products/';
             if (this.category_id != 'undefined' && this.category_id != null) {
-                url = '/show-products/' + this.category_id;
+                this.url = '/show-products/' + this.category_id;
             }
-            axios.get(url).then(function (_ref) {
+            // alert(this.url);
+            axios.get(page_url).then(function (_ref) {
                 var data = _ref.data;
 
-
+                //  console.log(data)
                 _this.products = data.data;
+                vm.makePagination(data.links, data.meta);
             }).catch(function (e) {
                 console.log(e);
             });
+        },
+        makePagination: function makePagination(data, meta) {
+            var pagination = {
+                current_page: meta.current_page,
+                last_page: meta.last_page,
+                next_page: data.next,
+                prev_page: data.prev
+            };
+            this.pagination = pagination;
+        },
+        fetchPaginateProducts: function fetchPaginateProducts(url) {
+            this.url = url;
+            console.log(url);
+            // this.loadProducts();
         }
     }
 });
@@ -16246,12 +16279,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("h3", { staticClass: "title  is-size-4" }, [
-            _vm._v("   " + _vm._s(product.name) + " ")
+            _vm._v(" " + _vm._s(product.name) + " ")
           ]),
           _vm._v(" "),
           _c("p", { staticClass: "subtitle" }, [
             _vm._v(
-              "   " + _vm._s(_vm._f("truncate")(product.description, 100)) + " "
+              " " + _vm._s(_vm._f("truncate")(product.description, 100)) + " "
             )
           ]),
           _vm._v(" "),
@@ -16269,19 +16302,55 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(" Read More ")]
+                [_vm._v(" Read More\n            ")]
               )
             ],
             1
           ),
           _vm._v(" "),
-          _c("div", [
-            _vm._v("\r\n        " + _vm._s(_vm.products.links) + "\r\n    ")
-          ]),
-          _vm._v(" "),
           _c("br")
         ])
-      })
+      }),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "button is-info",
+            attrs: { disabled: !_vm.pagination.prev_page },
+            on: {
+              click: function($event) {
+                _vm.loadProducts(_vm.pagination.prev_page)
+              }
+            }
+          },
+          [_vm._v("\n            Previous\n        ")]
+        ),
+        _vm._v(" "),
+        _c("span", [
+          _vm._v(
+            " " +
+              _vm._s(_vm.pagination.current_page) +
+              " out of " +
+              _vm._s(_vm.pagination.last_page) +
+              " "
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "button is-info",
+            attrs: { disabled: !_vm.pagination.next_page },
+            on: {
+              click: function($event) {
+                _vm.loadProducts(_vm.pagination.next_page)
+              }
+            }
+          },
+          [_vm._v("\n            Next\n        ")]
+        )
+      ])
     ],
     2
   )
@@ -16441,11 +16510,11 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("h3", { staticClass: "title" }, [
-          _vm._v("   " + _vm._s(prod.name) + " ")
+          _vm._v(" " + _vm._s(prod.name) + " ")
         ]),
         _vm._v(" "),
         _c("p", { staticClass: "subtitle" }, [
-          _vm._v("   " + _vm._s(prod.description) + " ")
+          _vm._v(" " + _vm._s(prod.description) + " ")
         ]),
         _vm._v(" "),
         _c("br")
@@ -16745,9 +16814,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v(" Home page ")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "section" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("h1", { staticClass: "title" }, [_vm._v("Home")]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "subtitle" }, [
+          _vm._v("\n            This is home page\n        ")
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -16812,9 +16896,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("This is the about page")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "section" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("h1", { staticClass: "title" }, [_vm._v("About")]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "subtitle" }, [
+          _vm._v("\n            This is About page\n        ")
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

@@ -7,10 +7,10 @@ use Kalnoy\Nestedset\NodeTrait;
 
 class Category extends Model
 {
-    use NodeTrait;
+	use NodeTrait;
 
-    public function products()
-    {
-        return $this->belongsToMany('App\Product', 'categories_products');
-    }
+	public function products()
+	{
+		return $this->belongsToMany('App\Product', 'categories_products');
+	}
 }

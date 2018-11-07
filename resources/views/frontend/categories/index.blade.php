@@ -11,36 +11,36 @@
             <div class="column is-two-fifths">
                 <aside class="menu">
                     <ul class="menu-list">
-                        <?php
-                        $traverse = function ($categories, $prefix = ' ') use (&$traverse) {
-                        foreach ($categories as $category) {
-                        ?>
+						<?php
+						$traverse = function ($categories, $prefix = ' ') use (&$traverse) {
+						foreach ($categories as $category) {
+						?>
 
                         <li>
                             <router-link
                                     :to="{ name: 'products',params : {category_id : {{$category->id}}}}"> {{ $category->name }} </router-link>
-                            <?php
-                            if($category->children){
-                            ?>
+							<?php
+							if($category->children){
+							?>
                             <ul>
                                 <li>
                                     {{ $traverse($category->children, $prefix . '-')}}
                                 </li>
                             </ul>
-                            <?php
-                            }
+							<?php
+							}
 
-                            ?>
+							?>
                         </li>
 
-                        <?php
-                        }
+						<?php
+						}
 
-                        };
-                        ?>
-                        <?php
-                        $traverse($categories);
-                        ?>
+						};
+						?>
+						<?php
+						$traverse($categories);
+						?>
                     </ul>
                 </aside>
             </div>
