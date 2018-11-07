@@ -28,14 +28,21 @@ class ProductApiController extends Controller
     public function create($product_id = null)
     {
         $categories = Category::all();
-        $product = Product::findOrFail($product_id);
-
         $category_id = null;
+        if($product_id !== null) {
+            $product = Product::findOrFail($product_id);
 
-        foreach ($product->categories as $cat) {
-            $category_id = $cat->id;
+            foreach ($product->categories as $cat) {
+                $category_id = $cat->id;
 
+            }
         }
+        else{
+            $product = null;
+        }
+
+
+
 
         return view('frontend.products._form', ['product_id' => $product_id, 'categories' => $categories, 'category_id' => $category_id,  'product' => $product]);
     }
@@ -68,7 +75,9 @@ class ProductApiController extends Controller
             $product->path = $new_name;
         }
         else{
-            $product->path = self::DEFAULT_IMAGE;
+            if($request->input('product_id') == null) {
+                $product->path = self::DEFAULT_IMAGE;
+            }
         }
 
         $category_id = $request->input('category_id');
