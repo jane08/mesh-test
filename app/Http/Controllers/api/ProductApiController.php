@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
 use App\Category;
+use App\Http\Controllers\Controller;
 use App\Product;
 use App\Http\Resources\Product as ProductResource;
 use Illuminate\Http\Request;

@@ -16198,7 +16198,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             category_id: null,
             products: [],
             pagination: [],
-            url: '/api/get-product/',
+            url: '/get-product/',
             current_page: 0,
             last_page: 0
         };
@@ -16233,7 +16233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadProducts: function loadProducts() {
             var _this = this;
 
-            this.url = '/api/get-product/' + (this.category_id ? this.category_id : '');
+            this.url = '/get-product/' + (this.category_id ? this.category_id : '');
             axios.get(this.url + '?page=' + this.current_page).then(function (_ref) {
                 var data = _ref.data;
 

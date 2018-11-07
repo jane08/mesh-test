@@ -40,7 +40,7 @@
                 category_id: null,
                 products: [],
                 pagination: [],
-                url: '/api/get-product/',
+                url: '/get-product/',
                 current_page : 0,
                 last_page : 0,
             }
@@ -73,7 +73,7 @@
                 }
             },
             loadProducts() {
-                this.url = '/api/get-product/' + (this.category_id ? this.category_id : '');
+                this.url = '/get-product/' + (this.category_id ? this.category_id : '');
                 axios.get(this.url+'?page='+this.current_page)
                     .then(({data}) => {
                         this.products = data.data;

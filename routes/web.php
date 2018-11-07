@@ -23,7 +23,7 @@ Route::group(['middleware' => ['web']], function () {
 		'as' => 'show-products'
 	]);
 
-	Route::get('api/get-product/{category_id?}', [
+	Route::get('/get-product/{category_id?}', [
 		'uses' => 'CategoryController@products',
 		//'as' => 'show-category'
 	]);
@@ -45,7 +45,7 @@ Route::group(['middleware' => ['web']], function () {
 	})->name('about');
 
 
-	Route::group(['prefix' => 'api'], function () {
+	Route::group(['prefix' => 'api', 'namespace' => 'api'], function () {
 
 		Route::get('/categories', [
 			'uses' => 'CategoryApiController@index',
