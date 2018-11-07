@@ -64,7 +64,7 @@ class CategoryTableSeeder extends Seeder
         }*/
 
 
-        $categories = [
+      /*  $categories = [
             [
                 'name' => $faker->text(20),
                 'children' => [
@@ -111,7 +111,7 @@ class CategoryTableSeeder extends Seeder
         foreach($categories as $category)
         {
             \App\Category::create($category);
-        }
+        }*/
 
 
         $cats = App\Category::all();

@@ -10,6 +10,11 @@
     <p class="subtitle">   {{ product.description | truncate(100) }} </p>
     <p class="subtitle">  <router-link
             :to="{ name: 'single-product',params : {product_id : product.id}}"> Read More </router-link> </p>
+
+    <div>
+        {{ products.links }}
+    </div>
+
     <br>
 </div>
 

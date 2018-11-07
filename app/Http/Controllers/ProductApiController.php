@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class ProductApiController extends Controller
 {
+    const DEFAULT_IMAGE = "326084549.jpg";
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +28,16 @@ class ProductApiController extends Controller
     public function create($product_id = null)
     {
         $categories = Category::all();
-        return view('frontend.products._form', ['product_id' => $product_id, 'categories' => $categories]);
+        $product = Product::findOrFail($product_id);
+
+        $category_id = null;
+
+        foreach ($product->categories as $cat) {
+            $category_id = $cat->id;
+
+        }
+
+        return view('frontend.products._form', ['product_id' => $product_id, 'categories' => $categories, 'category_id' => $category_id,  'product' => $product]);
     }
 
     /**
@@ -52,10 +62,15 @@ class ProductApiController extends Controller
         $product->description = $request->input('description');
 
         $image = $request->file('product_image');
-        $new_name = rand() . "." . $image->getClientOriginalExtension();
-        $path = $image->move(public_path("images"), $new_name);
+        if(!empty($request->file('product_image'))) {
+            $new_name = rand() . "." . $image->getClientOriginalExtension();
+            $path = $image->move(public_path("images"), $new_name);
+            $product->path = $new_name;
+        }
+        else{
+            $product->path = self::DEFAULT_IMAGE;
+        }
 
-        $product->path = $new_name;
         $category_id = $request->input('category_id');
 
         if ($product->save()) {
