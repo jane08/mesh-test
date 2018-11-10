@@ -29,9 +29,15 @@ class CategoryApiController extends Controller
 	public function create($category_id = null)
 	{
 		$categories = Category::find($category_id);
-		$categories = $categories->getSiblings();
-		//$categories = Category::all();
-
+		if (!empty($categories)) {
+			$categories = $categories->getSiblings();
+			//$categories = Category::all();
+			if (empty($categories)) {
+				$categories = Category::all();
+			}
+		} else {
+			$categories = Category::all();
+		}
 		if (!is_null($category_id)) {
 			$cat = Category::findOrFail($category_id);
 		} else {
