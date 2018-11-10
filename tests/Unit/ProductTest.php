@@ -96,7 +96,7 @@ class ProductTest extends TestCase
 		$product = Product::first();
 		$category = Category::first();
 		$body = [
-			'product_id' => 2,
+			'product_id' => $product->id,
 			'name' => 'changed',
 			'description' => $faker->text,
 			'path' => '326084549.jpg',

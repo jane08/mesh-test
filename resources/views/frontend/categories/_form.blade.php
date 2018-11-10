@@ -32,7 +32,7 @@
                 <div class="control">
                     <div class="select">
                         <select name="parent_id" id="parent_id">
-                            <option value={{ null }}>Select category</option>
+                            <option value=<?= null ?>>No parent</option>
                             @foreach($categories as $category)
 
                                 <option value="{{ !empty($category)? $category->id : '' }}"

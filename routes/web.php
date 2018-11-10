@@ -62,6 +62,11 @@ Route::group(['middleware' => ['web']], function () {
 			'as' => 'category_store'
 		]);
 
+		Route::put('/category', [
+			'uses' => 'CategoryApiController@store',
+			'as' => 'category_store'
+		]);
+
 		Route::get('/delete/category/{category_id}', [
 			'uses' => 'CategoryApiController@destroy',
 			'as' => 'category_delete'
